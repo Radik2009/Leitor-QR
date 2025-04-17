@@ -1,5 +1,5 @@
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js" type="text/javascript"></script>
 <script>
   function docReady(fn) {
     if (document.readyState === "complete" || document.readyState === "interactive") {
@@ -8,14 +8,10 @@
       document.addEventListener("DOMContentLoaded", fn);
     }
   }
-
-  docReady(function () {
+  docReady(function() {
     var resultContainer = document.getElementById('qr-reader-results');
     var lastResult, countResults = 0;
-
-    var html5QrcodeScanner = new Html5QrcodeScanner(
-      "qr-reader", { fps: 10, qrbox: 250 });
-
+    var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 10, qrbox: 250 });
     function onScanSuccess(decodedText, decodedResult) {
       if (decodedText !== lastResult) {
         ++countResults;
@@ -24,11 +20,7 @@
         document.getElementById("productCode").value = decodedText;
       }
     }
-
-    function onScanError(error) {
-      // Silent error handling
-    }
-
+    function onScanError(qrCodeError) {}
     html5QrcodeScanner.render(onScanSuccess, onScanError);
   });
 </script>

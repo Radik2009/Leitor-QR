@@ -1,19 +1,17 @@
+
 <script>
   window.addEventListener("load", functionInit, true);
-
   function functionInit() {
     preventFormSubmit();
-  }
-
+  };
   function preventFormSubmit() {
     var forms = document.querySelectorAll('form');
     for (var i = 0; i < forms.length; i++) {
-      forms[i].addEventListener('submit', function (event) {
+      forms[i].addEventListener('submit', function(event) {
         event.preventDefault();
       });
     }
   }
-
   function handleFormSubmit(formObject) {
     google.script.run.processForm(formObject);
     const resultContainer = document.getElementById('qr-reader-results');
