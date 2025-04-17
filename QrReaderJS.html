@@ -1,0 +1,34 @@
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+<script>
+  function docReady(fn) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      setTimeout(fn, 1);
+    } else {
+      document.addEventListener("DOMContentLoaded", fn);
+    }
+  }
+
+  docReady(function () {
+    var resultContainer = document.getElementById('qr-reader-results');
+    var lastResult, countResults = 0;
+
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+      "qr-reader", { fps: 10, qrbox: 250 });
+
+    function onScanSuccess(decodedText, decodedResult) {
+      if (decodedText !== lastResult) {
+        ++countResults;
+        lastResult = decodedText;
+        resultContainer.innerHTML += `<div class="p-3 mb-2 bg-success text-white">[${countResults}] - ${decodedText}</div>`;
+        document.getElementById("productCode").value = decodedText;
+      }
+    }
+
+    function onScanError(error) {
+      // Silent error handling
+    }
+
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+  });
+</script>
